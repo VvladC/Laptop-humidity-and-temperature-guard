@@ -14,24 +14,24 @@ The solution? Smart Monitoring and Cooling System​
 Automatically checks and reacts to environmental conditions​
 Helps protect the laptop and ensure optimal performance​
 
-Components Used​ 
-Arduino Uno board​
-Breadboard for wiring connections​
-Male-to-male jumper wires​
-DHT11 sensor (temperature & humidity)​
-MG996R servo motor​
-LED’s​
- Extra's ( optional )​
-Phone charger cable​
+Components Used​  
+Arduino Uno board​  
+Breadboard for wiring connections​  
+Male-to-male jumper wires​  
+DHT11 sensor (temperature & humidity)  ​
+MG996R servo motor​  
+LED’s​  
+ Extra's ( optional )  ​
+Phone charger cable​  
 
 Wiring setup
 
 DHT11 Sensor:​
 
 Connected to Breadboard at slots A9–A6​
-Jumper from C9 → Breadboard (-)​
-Jumper from C7 → Arduino Pin 2​
-Jumper from C6 → Breadboard (+)​
+Jumper from C9 → Breadboard (-)​  
+Jumper from C7 → Arduino Pin 2​  
+Jumper from C6 → Breadboard (+)​  
 
 MG996R Servo Motor:​
 
