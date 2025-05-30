@@ -1,0 +1,83 @@
+#include <Arduino.h>
+#include <Servo.h>
+#include <DHT.h>
+
+#define DHTPIN 2
+#define DHTTYPE DHT11
+#define SERVO_PIN 9
+#define LED_PIN 13         // Temperature warning LED
+#define HUM_LED_PIN 12     // Humidity warning LED
+
+Servo myServo;
+DHT dht(DHTPIN, DHTTYPE);
+
+const float TEMP_THRESHOLD = 28.0; // Temperature warning threshold
+const float HUM_THRESHOLD = 70.0;  // Humidity warning threshold
+const float TEMP_CRIT = 50.0;      // Critical temperature shutdown
+const float HUM_CRIT = 95.0;       // Critical humidity shutdown
+bool fanOn = false;
+
+void setup() {
+    Serial.begin(9600);
+    myServo.attach(SERVO_PIN);
+    myServo.write(90); // Center position (stopped for standard servo)
+    dht.begin();
+    pinMode(LED_PIN, OUTPUT);
+    pinMode(HUM_LED_PIN, OUTPUT);
+}
+
+void loop() {
+    float temp = dht.readTemperature();
+    float hum = dht.readHumidity();
+
+    if (isnan(temp) || isnan(hum)) {
+        Serial.println("Sensor error!");
+        digitalWrite(LED_PIN, LOW);
+        digitalWrite(HUM_LED_PIN, LOW);
+        myServo.write(90); // Stop servo
+        delay(10000);
+        return;
+    }
+
+    // Forceful shutdown if critical values are reached
+    if (temp >= TEMP_CRIT || hum >= HUM_CRIT) {
+        Serial.println("CRITICAL: System shutting down to preserve hardware!");
+        digitalWrite(LED_PIN, LOW);
+        digitalWrite(HUM_LED_PIN, LOW);
+        myServo.write(90); // Stop servo
+        while (1) {
+            // System halted
+        }
+    }
+
+    Serial.print("Temp: "); Serial.print(temp); Serial.print(" C, ");
+    Serial.print("Humidity: "); Serial.print(hum); Serial.println(" %");
+
+    // Fan logic: only change state if threshold crossed
+    if (temp > TEMP_THRESHOLD && !fanOn) {
+        fanOn = true;
+        myServo.write(180); // Start spinning
+        digitalWrite(LED_PIN, HIGH); // Temp warning LED ON
+        Serial.println("Fan ON");
+    } else if (temp <= TEMP_THRESHOLD && fanOn) {
+        fanOn = false;
+        myServo.write(90); // Stop
+        digitalWrite(LED_PIN, LOW); // Temp warning LED OFF
+        Serial.println("Fan OFF");
+    }
+
+    // Humidity warning: blink LED if humidity is too high
+    if (hum > HUM_THRESHOLD) {
+        for (int i = 0; i < 10; i++) { // Blink for 1 second (10 x 100ms)
+            digitalWrite(HUM_LED_PIN, HIGH);
+            delay(50);
+            digitalWrite(HUM_LED_PIN, LOW);
+            delay(50);
+        }
+    } else {
+        digitalWrite(HUM_LED_PIN, LOW);
+        delay(1000); // Wait 1 second if not blinking
+    }
+
+    delay(9000); // Remaining delay to make total loop 10 seconds
+}
