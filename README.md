@@ -15,6 +15,7 @@ Automatically checks and reacts to environmental conditions​
 Helps protect the laptop and ensure optimal performance​
 
 Components Used​  
+  
 Arduino Uno board​  
 Breadboard for wiring connections​  
 Male-to-male jumper wires​  
@@ -28,21 +29,21 @@ Wiring setup
 
 DHT11 Sensor:​
 
-Connected to Breadboard at slots A9–A6​
+Connected to Breadboard at slots A9–A6​  
 Jumper from C9 → Breadboard (-)​  
 Jumper from C7 → Arduino Pin 2​  
 Jumper from C6 → Breadboard (+)​  
 
-MG996R Servo Motor:​
+MG996R Servo Motor:​  
 
-Yellow wire → Arduino Pin 9​
-Red wire → Breadboard (+)​
-Brown wire → Breadboard (–)​
+Yellow wire → Arduino Pin 9​  
+Red wire → Breadboard (+)​  
+Brown wire → Breadboard (–)​  
 
 Power:​
 
-Arduino 5V → Breadboard (+)​
-Arduino GND → Breadboard (–)​
+Arduino 5V → Breadboard (+)​  
+Arduino GND → Breadboard (–)​  
 
 The sensor reads temperature and humidity every 10 seconds​
 
