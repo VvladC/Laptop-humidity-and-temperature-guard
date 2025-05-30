@@ -1,6 +1,10 @@
 # Laptop-humidity-and-temperature-guard
 Arduino-based system for laptop cooling based on temperature and humidity sensors
 
+
+![coolpi](https://github.com/user-attachments/assets/302af53b-119a-4fd6-a91d-eaf8d1c70e06)
+
+
 Overheating can damage internal components.​
 Users often resort to:​
   Lifting the laptop​
@@ -39,6 +43,7 @@ MG996R Servo Motor:​
 Yellow wire → Arduino Pin 9​  
 Red wire → Breadboard (+)​  
 Brown wire → Breadboard (–)​  
+
 
 Power:​
 
