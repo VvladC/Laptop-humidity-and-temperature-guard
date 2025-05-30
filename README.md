@@ -1,4 +1,4 @@
-# Laptop-humidity-and-temperature-guard
+# CoolPi
 Arduino-based system for laptop cooling based on temperature and humidity sensors
 
 
